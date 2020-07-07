@@ -1,0 +1,69 @@
+management:
+  endpoints:
+    web:
+      base-path: /management
+      exposure:
+        include: ["configprops", "env", "metrics", "prometheus", "health","info", "threaddump"]
+
+  info:
+    git:
+      mode: full
+  metrics:
+    enabled: true
+    export:
+      prometheus:
+        enabled: true
+    web:
+      server:
+        auto-time-requests: true
+    distribution:
+      percentiles:
+        all: 0.7, 0.95, 0.99
+  prometheus:
+    enabled: true
+  server:
+    port: 7070
+  endpoint:
+    restart:
+      enabled: true
+server:
+  port: 7070
+  servlet:
+    context-path: /cartservice
+    session:
+      cookie:
+        http-only: true
+swagger:
+  api:
+    title: Cart Service
+    basePackage: com.bbs.cart
+    name: Ramesh
+    description: Swagger for Cart Service Application
+    version: 0.0.1-SNAPSHOT
+    contact: Cart Team
+    license: Apache 2.0
+    licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.html
+    email: test@gmail.com
+    url: http://www.apache.org
+---
+spring:
+  profiles: default
+cart:
+  data:
+    service:
+      baseUrl: http://localhost:6060/cartdata/carts/
+swagger:
+  host:
+    name: localhost:${server.port}/cartservice
+
+---
+spring:
+  profiles: local
+cart:
+  data:
+    service:
+      baseUrl: http://cartdata.default.svc.cluster.local:6060/cartdata/carts/
+swagger:
+  host:
+    name: localhost/cartservice
+
