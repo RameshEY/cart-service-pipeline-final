@@ -1,6 +1,6 @@
 pipeline{
     environment {
-     registry = "biswabhusan/cart-service"
+     registry = "testdockerramesh/cart-service"
      registryCredential = 'dockerhub'
      dockerImage = ''
     }
